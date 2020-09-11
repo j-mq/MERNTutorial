@@ -1,4 +1,5 @@
 const express = require("express");
+const { body } = require("express-validator");
 //express server
 const connectDB = require("./config/db");
 //Connect to DB
@@ -8,6 +9,10 @@ const app = express();
 
 //Connect to DB
 connectDB();
+
+//Init Middleware
+app.use(express.json({ extended: false }));
+//(previously bodyParser.json())
 
 app.get("/", (req, res) => res.send("API Running"));
 //Basic GET request
