@@ -1,9 +1,13 @@
 //MongoDB connection
 const mongoose = require("mongoose");
-const config = require("config");
-const db = config.get("mongoURI");
+//const config = require("config");
+//const db = config.get("mongoURI");
 
-//Contectin through mongoose, using the db URI
+//Changed to get the info from .env variables grabbed in dbconfig
+const dbconfig = require("./dbconfig");
+const db = dbconfig.mongoURI;
+
+//Contecting through mongoose, using the db URI
 //Gives back a promise
 //Use try/catch when using async await
 const connectDB = async () => {
