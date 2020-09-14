@@ -1,3 +1,4 @@
 {
-  "mongoURI": "Not in use for privacy"
+  "mongoURI": "Not in use for privacy: goes in the .env variable",
+  "jwtSecret": "Not in use for privacy: goes in the .env variable"
 }

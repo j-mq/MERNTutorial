@@ -9,6 +9,11 @@ const gravatar = require("gravatar");
 //For avatars
 const bcrypt = require("bcryptjs");
 //For encrypting password
+const jwt = require("jsonwebtoken");
+//Token for authentication
+//const config = require("config");
+//Not in use, instead using env variables
+const dbconfig = require("../../config/dbconfig");
 
 //@route    POST api/users
 //@desc     Register user
@@ -57,12 +62,30 @@ router.post(
       //To do hashing, recommended is 10 in documentation
       user.password = await bcrypt.hash(password, salt);
       //
-      await user.save();
       //Saving the user (Anything that returns a promise goes with await)
+      await user.save();
       //
       //Return jsonwebtoken
+      const payload = {
+        user: {
+          id: user.id,
+          //Even if in mongoose it's saved as _id, it doesn't need the "_" for calling
+        },
+      };
+      //jwt.sign(payload, config.get("jwtSecret"));
+      jwt.sign(
+        payload,
+        dbconfig.jwtSecret,
+        {
+          //expiresIn: 3600 => Change on deploy
+          expiresIn: 360000,
+        },
+        (error, token) => {
+          if (error) throw error;
+          res.json({ token });
+        }
+      );
       //
-      res.send("User registered");
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server error");
