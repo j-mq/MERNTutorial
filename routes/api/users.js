@@ -65,6 +65,7 @@ router.post(
       //Saving the user (Anything that returns a promise goes with await)
       await user.save();
       //
+
       //Return jsonwebtoken
       const payload = {
         user: {
@@ -83,6 +84,7 @@ router.post(
         (error, token) => {
           if (error) throw error;
           res.json({ token });
+          //Receiving the token
         }
       );
       //
