@@ -1,4 +1,6 @@
 {
   "mongoURI": "Not in use for privacy: goes in the .env variable",
-  "jwtSecret": "Not in use for privacy: goes in the .env variable"
+  "jwtSecret": "Not in use for privacy: goes in the .env variable",
+  "githubClientId": "Not in use for privacy: goes in the .env variable",
+  "githubSecret": "Not in use for privacy: goes in the .env variable"
 }
