@@ -16,6 +16,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
       //Parameters suggested when ran for the first time for deprecated parts
     });
     console.log("MongoDB Connected...");
