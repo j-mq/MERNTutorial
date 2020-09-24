@@ -146,6 +146,7 @@ router.get("/user/:user_id", async (req, res) => {
     console.error(error.message);
 
     if (error.kind == "ObjectId") {
+      //Id is made inside ObjectId on MongoDB
       return res.status(400).json({ msg: "Profile not found" });
     }
 
@@ -222,5 +223,29 @@ router.put(
     }
   }
 );
+
+//@route    DELETE api/profile/experience/:exp_id
+//@desc     Delete experience from profile
+//@access   Private
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //Get remove index
+    const removeIndex = profile.experience
+      .map((item) => item.id)
+      .indexOf(req.params.exp_id);
+    //Getting the index of whatever matches the exp_id inside the mapping
+
+    //Remove the experience at index
+    profile.experience.splice(removeIndex, 1);
+
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
